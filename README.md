@@ -1,4 +1,4 @@
-![](https://raw.githubusercontent.com/cto-ai/sdk-python/master/assets/banner.png)
+![](https://raw.githubusercontent.com/cto-ai/sdk-python/master/banner.png)
 
 # sdk-python
 
