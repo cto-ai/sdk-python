@@ -36,6 +36,9 @@ class JsonStore:
         self.getter_all = getter_all
         self.setter = setter
 
+    def get_all(self):
+        return self.getter_all()
+
     def get(self, key: str):
         return self.getter({"key": key})
 
