@@ -31,30 +31,24 @@ def get_config_path() -> str:
 
 
 class JsonStore:
-    def __init__(self, filename: str):
-        self.filename = filename
+    def __init__(self, getter, getter_all, setter):
+        self.getter = getter
+        self.getter_all = getter_all
+        self.setter = setter
 
     def get_all(self):
-        try:
-            with open(self.filename) as infile:
-                return json.load(infile)
-        except (json.JSONDecodeError, OSError):
-            return {}
+        return self.getter_all()
 
     def get(self, key: str):
-        return self.get_all().get(key)
+        return self.getter({"key": key})
 
     def set(self, key: str, value: str):
-        state = self.get_all()
-        state[key] = value
-
-        with open(self.filename, "w") as outfile:
-            json.dump(state, outfile)
-        return state
+        self.setter({"key": key, "value": value})
+        return self.getter_all()
 
 
-state = JsonStore(os.path.join(get_state_path(), "state.json"))
-config = JsonStore(os.path.join(get_config_path(), "config.json"))
+state = JsonStore(daemon_request.get_state, daemon_request.get_all_state, daemon_request.set_state)
+config = JsonStore(daemon_request.get_config, daemon_request.get_all_config, daemon_request.set_config)
 
 
 def track(
