@@ -75,7 +75,7 @@ def checkbox(
     message: str,
     *,
     choices: Iterable[str],
-    default: Optional[Iterable[Union[str, int]]],
+    default: Optional[Iterable[Union[str, int]]] = None,
     flag: Optional[str] = None,
 ):
     """Prompt the user for a selection of any number members of a list of strings"""
