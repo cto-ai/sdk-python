@@ -65,9 +65,9 @@ def track(
 
 def get_secret(key: str) -> str:
     """Get a secret from the secret store by key"""
-    daemon_request.get_secret({"key": key})[key]
+    return daemon_request.get_secret({"key": key})[key]
 
 
 def set_secret(key: str, value: str) -> str:
     """Set a secret in the secret store by key"""
-    daemon_request.set_secret({"key": key, "value": value})["key"]
+    return daemon_request.set_secret({"key": key, "value": value})["key"]
