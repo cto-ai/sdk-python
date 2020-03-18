@@ -37,14 +37,14 @@ class JsonStore:
         self.setter = setter
 
     def get_all(self):
-        return self.getter_all()
+        return self.getter_all({})
 
     def get(self, key: str):
         return self.getter({"key": key})
 
     def set(self, key: str, value: str):
         self.setter({"key": key, "value": value})
-        return self.getter_all()
+        return self.getter_all({})
 
 
 state = JsonStore(daemon_request.get_state, daemon_request.get_all_state, daemon_request.set_state)
@@ -65,9 +65,9 @@ def track(
 
 def get_secret(key: str) -> str:
     """Get a secret from the secret store by key"""
-    daemon_request.get_secret({"key": key})[key]
+    return daemon_request.get_secret({"key": key})[key]
 
 
 def set_secret(key: str, value: str) -> str:
     """Set a secret in the secret store by key"""
-    daemon_request.set_secret({"key": key, "value": value})["key"]
+    return daemon_request.set_secret({"key": key, "value": value})["key"]
