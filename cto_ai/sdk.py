@@ -37,14 +37,14 @@ class JsonStore:
         self.setter = setter
 
     def get_all(self):
-        return self.getter_all()
+        return self.getter_all({})
 
     def get(self, key: str):
         return self.getter({"key": key})
 
     def set(self, key: str, value: str):
         self.setter({"key": key, "value": value})
-        return self.getter_all()
+        return self.getter_all({})
 
 
 state = JsonStore(daemon_request.get_state, daemon_request.get_all_state, daemon_request.set_state)
