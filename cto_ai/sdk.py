@@ -16,16 +16,16 @@ def get_interface_type() -> str:
 
 def home_dir() -> str:
     """Return the location of the user home directory"""
-    return os.environ.get("SDK_HOME_DIR", "root")
+    return os.environ.get("SDK_HOME_DIR", "/root")
 
 
 log = print
 
-
+# DEPRECATED: please use `sdk.home_dir()` instead
 def get_state_path() -> str:
     return abspath(os.environ.get("SDK_STATE_DIR", ""))
 
-
+# DEPRECATED: incompatible with current config API
 def get_config_path() -> str:
     return abspath(os.environ.get("SDK_CONFIG_DIR", ""))
 
@@ -46,8 +46,9 @@ class JsonStore:
         self.setter({"key": key, "value": value})
         return self.getter_all({})
 
-
+# DEPRECATED: state is used by deprecated workflows feature
 state = JsonStore(daemon_request.get_state, daemon_request.get_all_state, daemon_request.set_state)
+
 config = JsonStore(daemon_request.get_config, daemon_request.get_all_config, daemon_request.set_config)
 
 
