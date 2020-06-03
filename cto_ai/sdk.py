@@ -31,10 +31,11 @@ def get_config_path() -> str:
 
 
 class JsonStore:
-    def __init__(self, getter, getter_all, setter):
+    def __init__(self, getter, getter_all, setter, deleter):
         self.getter = getter
         self.getter_all = getter_all
         self.setter = setter
+        self.deleter = deleter
 
     def get_all(self):
         return self.getter_all({})
@@ -45,11 +46,14 @@ class JsonStore:
     def set(self, key: str, value: str):
         self.setter({"key": key, "value": value})
         return self.getter_all({})
+    
+    def delete(self, key: str):
+        return self.deleter({"key": key})
 
 # DEPRECATED: state is used by deprecated workflows feature
 state = JsonStore(daemon_request.get_state, daemon_request.get_all_state, daemon_request.set_state)
 
-config = JsonStore(daemon_request.get_config, daemon_request.get_all_config, daemon_request.set_config)
+config = JsonStore(daemon_request.get_config, daemon_request.get_all_config, daemon_request.set_config, daemon_request.delete_config)
 
 
 def track(
