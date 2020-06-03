@@ -43,6 +43,7 @@ get_state = _make_sync_requester("state/get")
 get_all_state = _make_sync_requester("state/get-all")
 get_config = _make_sync_requester("config/get")
 get_all_config = _make_sync_requester("config/get-all")
+delete_config = _make_requester("config/delete")
 
 def _make_async_requester(endpoint):
     def requester(body):
