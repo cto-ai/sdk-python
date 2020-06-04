@@ -31,7 +31,7 @@ def get_config_path() -> str:
 
 
 class JsonStore:
-    def __init__(self, getter, getter_all, setter, deleter):
+    def __init__(self, getter, getter_all, setter, deleter=None):
         self.getter = getter
         self.getter_all = getter_all
         self.setter = setter
@@ -48,6 +48,8 @@ class JsonStore:
         return self.getter_all({})
     
     def delete(self, key: str):
+        if self.deleter is None:
+            raise RuntimeError("Delete method not implemented.")
         return self.deleter({"key": key})
 
 # DEPRECATED: state is used by deprecated workflows feature
