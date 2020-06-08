@@ -83,7 +83,7 @@ def track(
 
 def events(start, end=None):
     if end is None:
-        end = datetime.now()
+        end = datetime.now().isoformat()
     return daemon_request.events({"start": start, "end": end})
 
 
