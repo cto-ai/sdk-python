@@ -2,6 +2,7 @@ import os, json, os.path, typing
 from os.path import abspath
 from requests.exceptions import RequestException
 from datetime import datetime
+from typing import Optional, List
 
 from . import daemon_request
 
@@ -81,7 +82,7 @@ def track(
         pass
 
 
-def events(start, end=None):
+def events(start: str, end: Optional[str] = None) -> List[dict]:
     if end is None:
         end = datetime.now().isoformat()
     return daemon_request.events({"start": start, "end": end})
