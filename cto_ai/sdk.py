@@ -1,7 +1,10 @@
 import os, json, os.path, typing
 from os.path import abspath
-from . import daemon_request
 from requests.exceptions import RequestException
+from datetime import datetime
+from typing import Optional, List
+
+from . import daemon_request
 
 
 def get_host_os() -> str:
@@ -25,6 +28,7 @@ log = print
 def get_state_path() -> str:
     return abspath(os.environ.get("SDK_STATE_DIR", ""))
 
+
 # DEPRECATED: incompatible with current config API
 def get_config_path() -> str:
     return abspath(os.environ.get("SDK_CONFIG_DIR", ""))
@@ -46,16 +50,24 @@ class JsonStore:
     def set(self, key: str, value: str):
         self.setter({"key": key, "value": value})
         return self.getter_all({})
-    
+
     def delete(self, key: str):
         if self.deleter is None:
             raise RuntimeError("Delete method not implemented.")
         return self.deleter({"key": key})
 
-# DEPRECATED: state is used by deprecated workflows feature
-state = JsonStore(daemon_request.get_state, daemon_request.get_all_state, daemon_request.set_state)
 
-config = JsonStore(daemon_request.get_config, daemon_request.get_all_config, daemon_request.set_config, daemon_request.delete_config)
+# DEPRECATED: state is used by deprecated workflows feature
+state = JsonStore(
+    daemon_request.get_state, daemon_request.get_all_state, daemon_request.set_state
+)
+
+config = JsonStore(
+    daemon_request.get_config,
+    daemon_request.get_all_config,
+    daemon_request.set_config,
+    daemon_request.delete_config,
+)
 
 
 def track(
@@ -68,6 +80,12 @@ def track(
     # It remains unclear what to do with these errors
     except RequestException:
         pass
+
+
+def events(start: str, end: Optional[str] = None) -> List[dict]:
+    if end is None:
+        end = datetime.now().isoformat()
+    return daemon_request.events({"start": start, "end": end})
 
 
 def get_secret(key: str) -> str:
