@@ -1,5 +1,16 @@
 from . import daemon_request
 from typing import Optional
+from .sdk import get_interface_type
+
+
+def bold(text: str) -> str:
+    """Format the given text as bold on the current interface"""
+    return f"*{text}*" if get_interface_type() == "slack" else f"\033[1m{text}\033[0m"
+
+
+def italic(text: str) -> str:
+    """Format the given text as italic on the current interface"""
+    return f"_{text}_" if get_interface_type() == "slack" else f"\033[3m{text}\033[23m"
 
 
 def print(text: str):
