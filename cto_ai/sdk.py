@@ -88,9 +88,9 @@ def events(start: str, end: Optional[str] = None) -> List[dict]:
     return daemon_request.events({"start": start, "end": end})
 
 
-def get_secret(key: str) -> str:
+def get_secret(key: str, hidden: Optional[bool] = False) -> str:
     """Get a secret from the secret store by key"""
-    return daemon_request.get_secret({"key": key})[key]
+    return daemon_request.get_secret({"key": key, "hidden": hidden})[key]
 
 
 def set_secret(key: str, value: str) -> str:
