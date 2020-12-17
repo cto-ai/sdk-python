@@ -82,6 +82,18 @@ def track(
         pass
 
 
+def start_op(
+    workflowName: str
+):
+    """Start a workflow from the sdk"""
+    try:
+        daemon_request.start_op(dict(trigger=True, workflowName=workflowName, tags=["trigger"]))
+
+    # It remains unclear what to do with these errors
+    except RequestException:
+        pass
+
+
 def events(start: str, end: Optional[str] = None) -> List[dict]:
     if end is None:
         end = datetime.now().isoformat()
