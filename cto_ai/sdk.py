@@ -82,7 +82,7 @@ def track(
         pass
 
 
-def start_op(
+def start(
     workflowName: str
 ):
     """Start a workflow from the sdk"""
