@@ -7,7 +7,7 @@ def _port():
     port = os.environ.get("SDK_SPEAK_PORT", None)
     if port is None:
         raise RuntimeError(
-            "The CTO.ai Ops SDK requires a daemon process to be running; this does not appear to be the case."
+            "CTOAI_PYSDK-8080: The CTO.ai Ops SDK requires a daemon process to be running; this does not appear to be the case."
         )
     return port
 
