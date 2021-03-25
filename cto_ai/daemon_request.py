@@ -30,9 +30,26 @@ set_state = _make_requester("state/set")
 set_config = _make_requester("config/set")
 
 
-def _make_sync_requester(endpoint):
+def _make_sync_requester(endpoint, method='POST'):
+    """Wrapper for sync requests to daemon.
+
+    Parameters
+    ----------
+    endpoint : str
+        daemon endpoint to call
+    method : str, optional
+        method to call daemon with, (default POST)
+
+    Raises
+    ------
+    HTTPError
+        if error calling the daemon occurs
+    """
     def requester(body):
-        response = requests.post(f"http://127.0.0.1:{_port()}/{endpoint}", json=body)
+        if method == 'POST':
+            response = requests.post(f"http://127.0.0.1:{_port()}/{endpoint}", json=body)
+        elif method == 'GET':
+            response = requests.get(f"http://127.0.0.1:{_port()}/{endpoint}")
 
         response.raise_for_status()
         response_data = response.json()
@@ -48,6 +65,7 @@ get_config = _make_sync_requester("config/get")
 get_all_config = _make_sync_requester("config/get-all")
 delete_config = _make_sync_requester("config/delete")
 events = _make_sync_requester("events")
+get_user = _make_sync_requester("user", 'GET')
 
 
 def _make_async_requester(endpoint):

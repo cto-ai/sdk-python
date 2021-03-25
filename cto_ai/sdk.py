@@ -108,3 +108,8 @@ def get_secret(key: str, hidden: Optional[bool] = False) -> str:
 def set_secret(key: str, value: str) -> str:
     """Set a secret in the secret store by key"""
     return daemon_request.set_secret({"key": key, "value": value})["key"]
+
+def user() -> dict:
+    res = daemon_request.get_user({})
+    keys = ['id', 'username', 'email']
+    return {key:res[key] for key in keys}
