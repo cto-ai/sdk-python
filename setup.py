@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="cto-ai",
-    version="2.3.2",
+    version="2.3.3",
     author="CTO.ai",
     author_email="devops@cto.ai",
     description="SDK for The Ops Platform",

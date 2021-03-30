@@ -113,3 +113,8 @@ def user() -> dict:
     res = daemon_request.get_user({})
     keys = ['id', 'username', 'email']
     return {key:res[key] for key in keys}
+
+def team() -> dict:
+    res = daemon_request.get_team({})
+    keys = ['id', 'name']
+    return {key:res[key] for key in keys}

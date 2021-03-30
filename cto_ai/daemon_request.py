@@ -66,6 +66,7 @@ get_all_config = _make_sync_requester("config/get-all")
 delete_config = _make_sync_requester("config/delete")
 events = _make_sync_requester("events")
 get_user = _make_sync_requester("user", 'GET')
+get_team = _make_sync_requester("team", 'GET')
 
 
 def _make_async_requester(endpoint):
