@@ -2,6 +2,10 @@ name: Integration Testing
 
 on:
   workflow_dispatch:
+    inputs:
+        gitTag:
+          description: 'Tag version (e. 2.3.3)'
+          required: true
 
 env: 
   GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
