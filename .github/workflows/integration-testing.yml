@@ -1,0 +1,22 @@
+name: Integration Testing
+
+on:
+  workflow_dispatch:
+
+env: 
+  GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
+  
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@v2
+
+      - name: Clone Integration Test
+        run: |
+          git clone https://${{ env.GIT_TOKEN }}@github.com/cto-ai/sdk-integration-testing.git
+          cd sdk-integration-testing
+          docker build --pull -t py-test:latest --build-arg SDK_TAG=v${{github.event.inputs.gitTag}} -f Dockerfile.python . && docker run --rm -it py-test:latest
