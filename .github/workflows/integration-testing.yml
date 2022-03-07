@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
         gitTag:
-          description: 'Tag version (e. 2.3.3)'
+          description: 'Tag version (e. 1.0.0b1)'
           required: true
 
 env: 
