@@ -23,5 +23,4 @@ jobs:
         run: |
           git clone https://${{ env.GIT_TOKEN }}@github.com/cto-ai/sdk-integration-testing.git
           cd sdk-integration-testing
-          git checkout test
           docker build --pull -t py-test:latest --build-arg SDK_TAG=v${{github.event.inputs.gitTag}} --build-arg SDK_TAG=v${{github.event.inputs.gitTag}} -f Dockerfile.python . && docker run --rm py-test:latest
