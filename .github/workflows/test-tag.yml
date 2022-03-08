@@ -5,7 +5,7 @@ on:
     inputs:
             tagToTest:
               description: 'Tag to test'
-              required: true
+              required: false
 jobs:
   build:
     runs-on: ubuntu-latest
